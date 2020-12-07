@@ -10,6 +10,9 @@ highlight Comment gui=bold
 highlight Normal gui=none
 highlight NonText guibg=none
 
+""splits
+set splitbelow
+set splitright
 
 """ Standard configuration for nvim
 filetype plugin indent on
@@ -32,6 +35,10 @@ function! CC()
     e output.txt
 endfunction
 
+function! Load()
+    r ~/snippets/cc
+endfunction
+
 "show testcases
 function! Show()
     45vs
@@ -47,7 +54,12 @@ endfunction
 
 """mapping
 let mapleader=","
-nmap <leader>c :call CC()<CR>
+""load from start
+nmap <leader>c :call CC()<CR> 
+""build the file
 nmap <leader>b :call Compile()<CR>
+""show testcases
 nmap <leader>st :call Show()<CR>
+""load snippet
+nmap <leader>l : call Load()<CR>
 nmap <leader>r :so ~/.config/nvim/init.vim<CR>
