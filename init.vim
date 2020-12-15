@@ -1,18 +1,58 @@
 call plug#begin()
 Plug 'dracula/vim', { 'commit': '147f389f4275cec4ef43ebc25e2011c57b45cc00' }
+Plug 'vim-syntastic/syntastic'
+Plug 'micha/vim-colors-solarized'
+Plug 'sjl/badwolf'
+Plug 'iamcco/markdown-preview.nvim' , { 'do': { -> mkdp#util#install() }, 'for': ['markdown', 'vim-plug']}
 call plug#end()
+
 
 """coloring
 syntax on
-color dracula
-highlight Pmenu guibg=white guifg=black gui=bold
-highlight Comment gui=bold
-highlight Normal gui=none
-highlight NonText guibg=none
+set background=dark
+set termguicolors
+colorscheme badwolf
+let g:badwolf_darkgutter = 0
+highlight StatusLine cterm=bold ctermfg=245 ctermbg=235
+highlight StatusLineNC cterm=bold ctermfg=245 ctermbg=235
+let g:lightline = {'colorscheme': 'dark'}
+highlight SpellBad cterm=underline
+" patches
+highlight CursorLineNr cterm=NONE
+set number
+set cindent
+set visualbell
+"
+
+"""markdown
+let g:mkdp_auto_start = 1
+let g:mkdp_open_to_the_world = 1
+let g:mkdp_auto_close = 1
+"let g:mkdp_browser = 'chrome'
+"let g:mkdp_port = 8080
+"let g:mkdp_open_ip = '127.0.0.1'
+
+
+
+
+
+"""recommended setting for synastic
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 1
+let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_wq = 0
+"ignore styling errors
+let g:syntastic_quiet_messages = {
+        \ "!level":  "errors",
+        \ "type":    "style",
+        \ "regex":   '.*',
+        \ "file:p":  '.*' }
+
 
 ""splits
 set splitbelow
 set splitright
+
 
 """ Standard configuration for nvim
 filetype plugin indent on
