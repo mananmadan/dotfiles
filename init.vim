@@ -24,6 +24,7 @@ set cindent
 set visualbell
 "
 
+
 """markdown
 let g:mkdp_auto_start = 1
 let g:mkdp_open_to_the_world = 1
@@ -33,20 +34,24 @@ let g:mkdp_auto_close = 1
 "let g:mkdp_open_ip = '127.0.0.1'
 
 
+"""mapping
+let mapleader=","
 
 
-
-"""recommended setting for synastic
+""syntastic
 let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_auto_loc_list = 1
-let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0
-"ignore styling errors
-let g:syntastic_quiet_messages = {
-        \ "!level":  "errors",
-        \ "type":    "style",
-        \ "regex":   '.*',
-        \ "file:p":  '.*' }
+let g:syntastic_mode_map = {
+    \ 'mode': 'passive',
+    \ 'active_filetypes': [],
+    \ 'passive_filetypes': []
+\}
+nnoremap <Leader>s :SyntasticCheck<CR>
+nnoremap <Leader>r :SyntasticReset<CR>
+nnoremap <Leader>i :SyntasticInfo<CR>
+nnoremap <Leader>m :SyntasticToggleMode<CR>
+
 
 
 ""splits
@@ -92,9 +97,7 @@ function! Compile()
     !g++ -std=c++17 -Wshadow -Wall -fsanitize=address -fsanitize=undefined -D_GLIBCXX_DEBUG % && ./a.out
 endfunction
 
-"""mapping
-let mapleader=","
-""load from start
+"load from start
 nmap <leader>c :call CC()<CR> 
 ""build the file
 nmap <leader>b :call Compile()<CR>

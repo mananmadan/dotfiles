@@ -1,4 +1,5 @@
 let g:netrw_dirhistmax  =10
-let g:netrw_dirhist_cnt =2
+let g:netrw_dirhist_cnt =3
 let g:netrw_dirhist_1='/home/manan/Desktop/projects/snapchat-filters'
 let g:netrw_dirhist_2='/home/manan/Desktop/Competitive-Coding/CF/live/627'
+let g:netrw_dirhist_3='/home/manan/.config/nvim/plugged'
