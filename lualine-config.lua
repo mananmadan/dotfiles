@@ -20,11 +20,22 @@ require('lualine').setup {
   sections = {
     lualine_a = {'mode'},
     lualine_b = {'branch', 'diff', 'diagnostics'},
-    lualine_c = {'filename'},
+    lualine_c = {'filename', 
+      {
+        function()
+         local navic = require("nvim-navic")
+          return navic.is_available() and navic.get_location() or ""
+        end,
+        cond = function()
+         return require("nvim-navic").is_available()
+        end,
+        color = { fg = "#a3be8c" },
+      },
+    },
     lualine_x = 
     {
       {'filetype',
-      colored = true,   -- Displays filetype icon in color if set to true
+      colored = false,   -- Displays filetype icon in color if set to true
       icon_only = false, -- Display only an icon for filetype
       icon = { align = 'right' },
       }-- Display filetype icon on the right hand side
