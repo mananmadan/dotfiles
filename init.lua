@@ -1,4 +1,96 @@
-vim.cmd('source ~/.nvimrc')
+-- Basic Options                                                                                                                                                                                                                      
+vim.opt.scrolloff = 4                                                                                                                                                                                                                 
+vim.opt.ruler = true                                                                                                                                                                                                                  
+vim.opt.tabstop = 2                                                                                                                                                                                                                   
+vim.opt.shiftwidth = 2                                                                                                                                                                                                                
+vim.opt.expandtab = true                                                                                                                                                                                                              
+vim.opt.smarttab = true                                                                                                                                                                                                               
+vim.opt.textwidth = 85                                                                                                                                                                                                                
+vim.opt.autoindent = true                                                                                                                                                                                                             
+vim.opt.cindent = true                                                                                                                                                                                                                
+vim.opt.ic = true                                                                                                                                                                                                                     
+vim.opt.wrapscan = false                                                                                                                                                                                                              
+vim.opt.terse = false                                                                                                                                                                                                                 
+vim.opt.showmode = true                                                                                                                                                                                                               
+vim.opt.compatible = false                                                                                                                                                                                                            
+vim.opt.filetype = 'on'                                                                                                                                                                                                               
+vim.opt.tags = "tags,../tags,../../tags,../../../tags"                                                                                                                                                                                
+--vim.diagnostic.disable()                                                                                                                                                                                                            
+                                                                                                                                                                                                                                      
+                                                                                                                                                                                                                                      
+-- Vim basic settings                                                                                                                                                                                                                 
+vim.cmd('set number')                                                                                                                                                                                                                 
+                                                                                                                                                                                                                                      
+-- Clipboard and background settings                                                                                                                                                                                                  
+vim.opt.clipboard = 'unnamedplus'                                                                                                                                                                                                     
+vim.opt.background = 'dark'                                                                                                                                                                                                           
+                                                                                                                                                                                                                                      
+-- Mappings                                                                                                                                                                                                                           
+vim.keymap.set('n', '<F1>', ':highlight normal guifg=black guibg=white<CR>')                                                                                                                                                          
+vim.keymap.set('n', '<F2>', ':n<CR>')                                                                                                                                                                                                 
+vim.keymap.set('n', '<F3>', ':browse confirm e<CR>')
+vim.keymap.set('n', '<F4>', ':1,$ s!<CR>')
+vim.keymap.set('n', '<F5>', ':1<CR>')
+vim.keymap.set('n', '<F6>', ':$<CR>')
+vim.keymap.set('n', '<F7>', ':if exists("syntax_on") | syntax off | else | syntax on | endif<CR>')
+vim.keymap.set('n', '<F8>', ':n<CR>')
+vim.keymap.set('n', '<F9>', ':%s!  !    !g<CR>')
+vim.keymap.set('n', '<F10>', ':. !fmt -65<CR>')
+vim.keymap.set('n', '<F11>', 'O<Esc>Sx...x...<CR>')
+vim.keymap.set('n', '<F12>', 'O<Esc>S....5...<CR>')
+vim.keymap.set('n', 'e', ':Explore<CR>')
+vim.keymap.set('n', '<C-Right>', 'gt')
+vim.keymap.set('n', '<C-Left>', 'gT')
+
+-- Plugin Management (Vundle equivalent with packer.nvim)
+vim.cmd [[packadd packer.nvim]]
+-- Run `:PackerSync` to install plugins
+local packer = require('packer')
+  packer.startup(function()
+    use 'wbthomason/packer.nvim'
+    use 'preservim/nerdtree'
+    use 'morhetz/gruvbox'
+    use 'kien/ctrlp.vim'
+    use 'ms-jpq/coq_nvim'
+    use 'ervandew/supertab'
+    use { 'nvim-lua/plenary.nvim', commit = 'v0.1.1' }  -- compatible with nvim 0.7
+    use { 'nvim-telescope/telescope.nvim', commit = '1b6b5f1' }  -- compatible version
+    use { 'nvim-treesitter/nvim-treesitter', commit = 'b91a6f8'}  -- replace with a commit known to work with Neovim 0.7
+    use 'catppuccin/nvim'
+    use 'projekt0n/github-nvim-theme'
+    use 'ellisonleao/gruvbox.nvim'
+    use 'EdenEast/nightfox.nvim'
+    use 'nvim-lualine/lualine.nvim'
+    use 'nvim-tree/nvim-web-devicons'
+    use 'akinsho/bufferline.nvim'
+    use 'neovim/nvim-lspconfig'
+    use 'hrsh7th/cmp-nvim-lsp'
+    use 'hrsh7th/cmp-buffer'
+    use 'hrsh7th/cmp-path'
+    use 'hrsh7th/cmp-cmdline'
+    use 'hrsh7th/nvim-cmp'
+    use 'hrsh7th/cmp-vsnip'
+    use 'hrsh7th/vim-vsnip'
+    use 'ray-x/cmp-treesitter'
+    use 'akinsho/bufferline.nvim'
+    use 'akinsho/bufferline.nvim'
+    use 'SmiteshP/nvim-navic'
+    use 'williamboman/mason-lspconfig.nvim'
+    use 'williamboman/mason.nvim'
+    use 'lewis6991/gitsigns.nvim'
+    use 'tpope/vim-fugitive'
+    use 'akinsho/toggleterm.nvim'
+end)
+
+-- Additional settings
+vim.cmd([[
+  set showtabline=2
+  highlight TabModified ctermbg=green guibg=green
+  highlight TabLineFill ctermbg=black guibg=dark
+  colorscheme gruvbox
+]])
+
+
 -- Function to execute shell commands and handle errors
 local function execute(command)
     print("Executing command:", command)
@@ -11,56 +103,6 @@ end
 
 -- Expand the tilde (~) to the home directory path
 local config_path = vim.fn.expand("~/.config/nvim/")
-
--- Path where Vim-Plug will be installed
-local plug_path = config_path .. "autoload/plug.vim"
-
--- Check if Vim-Plug is already installed
-local stat = vim.loop.fs_stat(plug_path)
-if stat then
-    print("Vim-Plug is already installed:", plug_path)
-else
-    -- Download Vim-Plug
-    local download_command = {
-        "curl", "-fLo",
-        plug_path,
-        "--create-dirs",
-        "https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim"
-    }
-    local result = execute(download_command)
-    if result == 0 then
-        print("Vim-Plug installed successfully!")
-    else
-        print("Error installing Vim-Plug.")
-    end
-end
-
--- Set up plugins using Vim-Plug
-vim.cmd("call plug#begin('~/.config/nvim/plugged')")
--- Define pluginse
-
-vim.cmd("Plug 'nvim-telescope/telescope.nvim'")
-vim.cmd("Plug 'catppuccin/nvim'")
-vim.cmd("Plug 'nvim-lua/plenary.nvim'")
-vim.cmd("Plug 'projekt0n/github-nvim-theme'")
-vim.cmd("Plug 'ellisonleao/gruvbox.nvim'")
-vim.cmd("Plug 'EdenEast/nightfox.nvim'")
-vim.cmd("Plug 'nvim-lualine/lualine.nvim'")
-vim.cmd("Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}")
-vim.cmd("Plug 'nvim-tree/nvim-web-devicons' ")
-vim.cmd("Plug 'akinsho/bufferline.nvim'")
-vim.cmd("Plug 'neovim/nvim-lspconfig'")
-vim.cmd("Plug 'hrsh7th/cmp-nvim-lsp'")
-vim.cmd("Plug 'hrsh7th/cmp-buffer'")
-vim.cmd("Plug 'hrsh7th/cmp-path'")
-vim.cmd("Plug 'hrsh7th/cmp-cmdline'")
-vim.cmd("Plug 'hrsh7th/nvim-cmp'")
-vim.cmd("Plug 'hrsh7th/cmp-vsnip'")
-vim.cmd("Plug 'hrsh7th/vim-vsnip'")
-vim.cmd("call plug#end()")
---vim.cmd('colorscheme carbonfox')
---vim.cmd("colorscheme catppuccin")
---
 
 vim.opt.termguicolors = true
 -- Function to source Lua files
@@ -80,7 +122,11 @@ local lua_files = {
     '~/.config/nvim/lua/nightfox-config.lua',
     '~/.config/nvim/lua/lualine-config.lua',
     '~/.config/nvim/lua/cmp-config.lua',
-    --'~/.config/nvim/lua/bufline-config.lua',
+    '~/.config/nvim/lua/buffline-config.lua',
+    '~/.config/nvim/lua/mason-config.lua',
+    '~/.config/nvim/lua/navic-config.lua',
+    '~/.config/nvim/lua/lsconfig.lua',
+    '~/.config/nvim/lua/toggle-term.lua',
     -- Add more Lua files as needed
 }
 
@@ -88,7 +134,7 @@ for _, file in ipairs(lua_files) do
     source_lua(file)
 end
 
--- Terminal Settings
+--[[ Terminal Settings
 vim.api.nvim_set_keymap('t','<Esc>','<C-\\><C-n>',{noremap = true, silent = true})
 -- Function to toggle terminal in a split window
 function ToggleTerm()
@@ -112,4 +158,13 @@ end
 
 -- Map <C-'> to toggle terminal
 vim.api.nvim_set_keymap('n', '<C-x>', ':lua ToggleTerm()<CR>', { noremap = true, silent = true })
+]]
+
 vim.o.background = "dark" -- or "light" for light mode
+-- init.lua
+vim.keymap.set("n", "<C-h>", "<C-w>h")
+vim.keymap.set("n", "<C-j>", "<C-w>j")
+vim.keymap.set("n", "<C-k>", "<C-w>k")
+vim.keymap.set("n", "<C-l>", "<C-w>l")
+
+
