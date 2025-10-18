@@ -53,9 +53,9 @@ local packer = require('packer')
     use 'kien/ctrlp.vim'
     use 'ms-jpq/coq_nvim'
     use 'ervandew/supertab'
-    use { 'nvim-lua/plenary.nvim', commit = 'v0.1.1' }  -- compatible with nvim 0.7
-    use { 'nvim-telescope/telescope.nvim', commit = '1b6b5f1' }  -- compatible version
-    use { 'nvim-treesitter/nvim-treesitter', commit = 'b91a6f8'}  -- replace with a commit known to work with Neovim 0.7
+    use 'nvim-lua/plenary.nvim'  
+    use 'nvim-telescope/telescope.nvim'    
+    use 'nvim-treesitter/nvim-treesitter'
     use 'catppuccin/nvim'
     use 'projekt0n/github-nvim-theme'
     use 'ellisonleao/gruvbox.nvim'
