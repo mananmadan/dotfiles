@@ -1,4 +1,4 @@
-require 'nvim-treesitter.install'.compilers = { "/med/build/gcc/gcc-11.1.0/rhel7/bin/gcc" }
+require 'nvim-treesitter.install'.compilers = { "/med/build/gcc/gcc-11.1.0/rhel7/bin/gcc", "/usr/bin/gcc" }
 require'nvim-treesitter.configs'.setup {
   -- A list of parser names, or "all" (the five listed parsers should always be installed)
   ensure_installed = { "cpp", "c", "lua" },
