@@ -2,7 +2,7 @@
 
 # Update and install packages
 apt update -y
-apt install -y vim tmux software-properties-common
+apt install -y vim tmux software-properties-common ripgrep curl wget
 
 git clone --depth 1 https://github.com/wbthomason/packer.nvim ~/.local/share/nvim/site/pack/packer/start/packer.nvim
 
