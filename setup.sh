@@ -1,9 +1,9 @@
 #!/bin/bash
 
 ## --- Define Paths ------ ##
-NVIM_CONFIG_DIR="$HOME_PATH/.config/nvim"
 HOME_PATH="$HOME"
-TMUX_CONFIG_DIR="$HOME_PAT/.config/tmux"
+NVIM_CONFIG_DIR="$HOME_PATH/.config/nvim"
+TMUX_CONFIG_DIR="$HOME_PATH/.config/tmux"
 
 echo "-- Install neccessory dependencies --"
 # Update and install packages
@@ -31,6 +31,6 @@ else
 fi
 
 echo "-- Setting up tmux environment --"
-cp -rf tmux.config "$TMUX_CONFIG_DIR"
+cp -rf tmux.conf "$TMUX_CONFIG_DIR"
 
 echo "--Set up done!"
