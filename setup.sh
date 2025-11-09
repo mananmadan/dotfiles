@@ -33,4 +33,6 @@ fi
 echo "-- Setting up tmux environment --"
 cp -rf tmux.conf "$TMUX_CONFIG_DIR"
 
-echo "--Set up done!"
+echo "-- Set up done! --"
+source $HOME/.bashrc
+
